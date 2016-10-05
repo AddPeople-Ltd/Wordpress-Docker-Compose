@@ -9,15 +9,20 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./default.conf:/etc/nginx/conf.d/default.conf
+      - ./wp-app:/var/www/html
     networks:
       - wordpress-network
 
   wordpress:
-    image: wordpress:fpm
+    build:
+      context: wordpress-build
+      dockerfile: Dockerfile
     ports:
-      - 127.0.0.1:9000:9000
+      - 9000:9000
     volumes:
       - ./wp-app:/var/www/html
+      - ./www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./php-fpm.conf:/usr/local/etc/php-fpm.conf
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_NAME: wordpress
