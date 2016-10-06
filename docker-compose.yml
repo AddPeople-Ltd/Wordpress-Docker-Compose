@@ -6,6 +6,7 @@ services:
       - 0.0.0.0:80:80
     links:
       - wordpress:wordpress
+      - smtp:smtp
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./default.conf:/etc/nginx/conf.d/default.conf
@@ -44,6 +45,14 @@ services:
       MYSQL_ROOT_PASSWORD: password
     networks:
       - wordpress-network
+
+  smtp:
+    image: namshi/smtp
+    restart: always
+    # environment:
+    #   - POSTFIX_myhostname=mail.ben-plant.co.uk
+    ports:
+      - 127.0.0.1:25:25
 
 networks:
   wordpress-network:
