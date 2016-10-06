@@ -165,4 +165,23 @@ $mysql->close();
 EOPHP
 fi
 
+wp --allow-root core install --url=$WORDPRESS_WP_URL --title="$WORDPRESS_WP_TITLE" --admin_user=$WORDPRESS_WP_USER --admin_password=$WORDPRESS_WP_PASS --admin_email=$WORDPRESS_WP_MAIL
+
+echo "Removing crap plugins..."
+wp --allow-root plugin deactivate hello-dolly && wp --allow-root plugin delete hello-dolly
+wp --allow-root plugin deactivate akismet && wp --allow-root plugin delete akismet
+
+echo "Installing plugins..."
+wp --allow-root plugin install advanced-custom-fields --activate
+wp --allow-root plugin install custom-post-type-ui --activate
+wp --allow-root plugin install wordpress-seo --activate
+wp --allow-root plugin install advanced-access-manager --activate
+wp --allow-root plugin install wp-super-cache --activate
+wp --allow-root plugin install wp-mail-smtp --activate
+
+echo "Installing theme..."
+wp --allow-root theme install ultrabootstrap --activate
+
+
+
 exec "$@"

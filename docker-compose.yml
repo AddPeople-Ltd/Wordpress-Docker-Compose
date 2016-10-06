@@ -25,10 +25,15 @@ services:
       - ./www.conf:/usr/local/etc/php-fpm.d/www.conf
       - ./php-fpm.conf:/usr/local/etc/php-fpm.conf
     environment:
+      WORDPRESS_WP_URL: http://localhost
+      WORDPRESS_WP_TITLE: "A New AddPeople Build"
+      WORDPRESS_WP_USER: admin
+      WORDPRESS_WP_PASS: pass
+      WORDPRESS_WP_MAIL: webadmin@addpeople.co.uk
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_NAME: wordpress
       WORDPRESS_DB_USER: root
-      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_PASSWORD: MrDicksWHY
     links:
       - db:db
       - smtp:smtp
@@ -43,7 +48,7 @@ services:
       - ./wp-data:/docker-entrypoint-initdb.d
     environment:
       MYSQL_DATABASE: wordpress
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: MrDicksWHY
     networks:
       - wordpress-network
 
